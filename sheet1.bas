@@ -12,80 +12,82 @@ Option Explicit
 Private Sub Worksheet_Change(ByVal Changes As Range)
 
     Dim Change As Range
+    Dim ws As Worksheet
+    Dim SearchRange As String
+    Dim SearchHeader As String
     Dim FoundCells As Range
     Dim FoundCell As Range
-    Dim ws As Worksheet
+
+
     
+    '* Will search for a single or multiple pasted entries
     For Each Change In Changes
     
+        '* If that field is blank - no need to search for a duplicate
         If Change <> "" Then
         
+            '* Check each sheet for duplicate values - all sheets have the same column layout
             For Each ws In ActiveWorkbook.Worksheets
             
                 With ws
-            
-                    If Change.Column = 2 Then
-                    
-                        Set FoundCells = FindAll(SearchRange:=.Range("B1:B65536"), _
-                                            FindWhat:=Change.Value, _
-                                            LookIn:=xlValues, _
-                                            LookAt:=xlWhole, _
-                                            SearchOrder:=xlByColumns, _
-                                            MatchCase:=False, _
-                                            BeginsWith:=vbNullString, _
-                                            EndsWith:=vbNullString, _
-                                            BeginEndCompare:=vbTextCompare)
-                                            
-                        If Not (FoundCells Is Nothing) Then
-                        
-                            For Each FoundCell In FoundCells
-                            
-                                If FoundCell.Address <> Change.Address Then
-                            
-                                    MsgBox ("Ticket# found on sheet: " & ws.Name & " in cell: " & FoundCell.Address(False, False))
-                                    
-                                End If
-                                
-                            Next FoundCell
-                            
-                        End If
-                    
-                    ElseIf Change.Column = 7 Then
-                    
-                        Set FoundCells = FindAll(SearchRange:=.Range("G1:G65536"), _
-                                            FindWhat:=Change.Value, _
-                                            LookIn:=xlValues, _
-                                            LookAt:=xlWhole, _
-                                            SearchOrder:=xlByColumns, _
-                                            MatchCase:=False, _
-                                            BeginsWith:=vbNullString, _
-                                            EndsWith:=vbNullString, _
-                                            BeginEndCompare:=vbTextCompare)
-                                            
-                        If Not (FoundCells Is Nothing) Then
-                        
-                            For Each FoundCell In FoundCells
-                            
-                                If FoundCell.Address <> Change.Address Then
-                            
-                                    MsgBox ("Pole# found on sheet: " & ws.Name & " in cell: " & FoundCell.Address(False, False))
-                                    
-                                End If
-                                
-                            Next FoundCell
-                            
-                        End If
-                    
-                    
-                    End If
                 
-                End With
+                    '* Only search if changes are in column 2 or column 7
+                    If Change.Column = 2 Or Change.Column = 7 Then
+                    
+                        '********************************************
+                        '* Set values based on column #             *
+                        '*                                          *
+                        '* SearchRange is the range of the column   *
+                        '* SearchHeader is the column name          *
+                        '********************************************
+                        If Change.Column = 2 Then
+                        
+                            SearchRange = "B1:B65536"
+                            SearchHeader = "Ticket#"
+                        
+                        ElseIf Change.Column = 7 Then
+                        
+                            SearchRange = "G1:G65536"
+                            SearchHeader = "Pole#"
+                    
+                        End If
+                        
+                        '* Call the FindAll function - supply the range and the value being searched for
+                        Set FoundCells = FindAll(SearchRange:=.Range(SearchRange), _
+                                            FindWhat:=Change.Value, _
+                                            LookIn:=xlValues, _
+                                            LookAt:=xlWhole, _
+                                            SearchOrder:=xlByColumns, _
+                                            MatchCase:=False, _
+                                            BeginsWith:=vbNullString, _
+                                            EndsWith:=vbNullString, _
+                                            BeginEndCompare:=vbTextCompare)
+                                            
+                        '* If duplicates are found
+                        If Not (FoundCells Is Nothing) Then
+                        
+                            For Each FoundCell In FoundCells
+                                
+                                '* Ignore the cells where values were just entered
+                                If FoundCell.Address <> Change.Address Then
+                            
+                                    MsgBox (SearchHeader & " found on sheet: " & ws.Name & " in cell: " & FoundCell.Address(False, False))
+                                    
+                                End If
+                                
+                            Next FoundCell
+                            
+                        End If
+                    
+                    End If 'Change.Column = 2 Or Change.Column = 7 Then
+                
+                End With 'ws
             
-            Next
+            Next 'Each ws In ActiveWorkbook.Worksheets
         
-        End If
+        End If 'Change <> "" Then
     
-    Next
+    Next 'Each Change In Changes
 
 End Sub
 
