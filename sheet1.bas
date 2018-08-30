@@ -18,8 +18,6 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
     Dim FoundCells As Range
     Dim FoundCell As Range
 
-
-    
     '* Will search for a single or multiple pasted entries
     For Each Change In Changes
     
@@ -29,6 +27,7 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
             '* Check each sheet for duplicate values - all sheets have the same column layout
             For Each ws In ActiveWorkbook.Worksheets
             
+                '* Not all sheets need to be checked
                 If Left(ws.Name, 3) <> "WOW" And ws.Name <> "Import" Then
             
                     With ws
