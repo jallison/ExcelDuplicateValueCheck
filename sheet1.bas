@@ -33,7 +33,7 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
                     With ws
                     
                         '* Only search if changes are in column 2 or column 7
-                        If Change.Column = 2 Or Change.Column = 7 Then
+                        If Change.Column = 2 Or Change.Column = 4 Then
                         
                             '********************************************
                             '* Set values based on column #             *
@@ -46,9 +46,9 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
                                 SearchRange = "B1:B65536"
                                 SearchHeader = "Ticket#"
                             
-                            ElseIf Change.Column = 7 Then
+                            ElseIf Change.Column = 4 Then
                             
-                                SearchRange = "G1:G65536"
+                                SearchRange = "D1:D65536"
                                 SearchHeader = "Pole#"
                         
                             End If
@@ -72,7 +72,7 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
                                     '* Ignore the cells where values were just entered
                                     If FoundCell.Address <> Change.Address Then
                                 
-                                        MsgBox (SearchHeader & " found on sheet: " & ws.Name & " in cell: " & FoundCell.Address(False, False))
+                                        MsgBox (SearchHeader & Change.Value & " found on sheet: " & ws.Name & " in cell: " & FoundCell.Address(False, False))
                                         
                                     End If
                                     
@@ -80,7 +80,7 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
                                 
                             End If
                         
-                        End If 'Change.Column = 2 Or Change.Column = 7 Then
+                        End If 'Change.Column = 2 Or Change.Column = 4 Then
                     
                     End With 'ws
                 
@@ -93,5 +93,4 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
     Next 'Each Change In Changes
 
 End Sub
-
 
