@@ -47,15 +47,7 @@ Private Sub CommandButton1_Click()
             Set ws = ThisWorkbook.Worksheets("Spectrum")
                         
             '* Call the FindAll function - supply the range and the value being searched for
-            Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), _
-                FindWhat:=aImport(iLoop, 1), _
-                LookIn:=xlValues, _
-                LookAt:=xlWhole, _
-                SearchOrder:=xlByColumns, _
-                MatchCase:=False, _
-                BeginsWith:=vbNullString, _
-                EndsWith:=vbNullString, _
-                BeginEndCompare:=vbTextCompare)
+            Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), FindWhat:=aImport(iLoop, 1))
                 
             '* If nothing is found then check the next worksheet
             If (FoundCells Is Nothing) Then
@@ -63,15 +55,7 @@ Private Sub CommandButton1_Click()
                 Set ws = ThisWorkbook.Worksheets("Spectrum Wait")
                 
                 '* Call the FindAll function - supply the range and the value being searched for
-                Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), _
-                    FindWhat:=aImport(iLoop, 1), _
-                    LookIn:=xlValues, _
-                    LookAt:=xlWhole, _
-                    SearchOrder:=xlByColumns, _
-                    MatchCase:=False, _
-                    BeginsWith:=vbNullString, _
-                    EndsWith:=vbNullString, _
-                    BeginEndCompare:=vbTextCompare)
+                Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), FindWhat:=aImport(iLoop, 1))
                     
             End If
             
@@ -117,15 +101,7 @@ Private Sub CommandButton1_Click()
             
                 If .Cells(iRow, 2).Value <> "" And Left(ws.Name, 3) <> "WOW" And ws.Name <> "Import" Then
                 
-                    Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), _
-                        FindWhat:=.Cells(iRow, 2).Value, _
-                        LookIn:=xlValues, _
-                        LookAt:=xlWhole, _
-                        SearchOrder:=xlByColumns, _
-                        MatchCase:=False, _
-                        BeginsWith:=vbNullString, _
-                        EndsWith:=vbNullString, _
-                        BeginEndCompare:=vbTextCompare)
+                    Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), FindWhat:=.Cells(iRow, 2).Value)
                         
                     If Not (FoundCells Is Nothing) Then
                     
@@ -141,6 +117,9 @@ Private Sub CommandButton1_Click()
             Next 'Each ws In ActiveWorkbook.Worksheets
             
         Next iRow '= StartRow To LastRow
+        
+        '* Sort the list by column 3
+        Range("A5:L" & LastRow).Sort key1:=Range("C5:C" & LastRow), order1:=xlAscending, Header:=xlNo
         
     End With '*ImportSheet
 
@@ -184,30 +163,14 @@ Private Sub CommandButton2_Click()
             Set ws = ThisWorkbook.Worksheets("WOW")
                         
             '* Call the FindAll function - supply the range and the value being searched for
-            Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), _
-                FindWhat:=aImport(iLoop, 1), _
-                LookIn:=xlValues, _
-                LookAt:=xlWhole, _
-                SearchOrder:=xlByColumns, _
-                MatchCase:=False, _
-                BeginsWith:=vbNullString, _
-                EndsWith:=vbNullString, _
-                BeginEndCompare:=vbTextCompare)
+            Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), FindWhat:=aImport(iLoop, 1))
                 
             If (FoundCells Is Nothing) Then
             
                 Set ws = ThisWorkbook.Worksheets("WOW Wait")
                 
                 '* Call the FindAll function - supply the range and the value being searched for
-                Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), _
-                    FindWhat:=aImport(iLoop, 1), _
-                    LookIn:=xlValues, _
-                    LookAt:=xlWhole, _
-                    SearchOrder:=xlByColumns, _
-                    MatchCase:=False, _
-                    BeginsWith:=vbNullString, _
-                    EndsWith:=vbNullString, _
-                    BeginEndCompare:=vbTextCompare)
+                Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), FindWhat:=aImport(iLoop, 1))
                     
             End If
                             
@@ -251,15 +214,7 @@ Private Sub CommandButton2_Click()
             
                 If .Cells(iRow, 2).Value <> "" And Left(ws.Name, 3) <> "Spe" And ws.Name <> "Import" Then
                 
-                    Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), _
-                        FindWhat:=.Cells(iRow, 2).Value, _
-                        LookIn:=xlValues, _
-                        LookAt:=xlWhole, _
-                        SearchOrder:=xlByColumns, _
-                        MatchCase:=False, _
-                        BeginsWith:=vbNullString, _
-                        EndsWith:=vbNullString, _
-                        BeginEndCompare:=vbTextCompare)
+                    Set FoundCells = FindAll(SearchRange:=ws.Range("B1:B65536"), FindWhat:=.Cells(iRow, 2).Value)
                         
                     If Not (FoundCells Is Nothing) Then
                     
@@ -276,7 +231,8 @@ Private Sub CommandButton2_Click()
             
         Next iRow '= StartRow To LastRow
         
-        
+        '* Sort the list by column 3
+        Range("A5:L" & LastRow).Sort key1:=Range("C5:C" & LastRow), order1:=xlAscending, Header:=xlNo
     
     End With '*ImportSheet
 

@@ -54,15 +54,7 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
                             End If
                             
                             '* Call the FindAll function - supply the range and the value being searched for
-                            Set FoundCells = FindAll(SearchRange:=.Range(SearchRange), _
-                                                FindWhat:=Change.Value, _
-                                                LookIn:=xlValues, _
-                                                LookAt:=xlWhole, _
-                                                SearchOrder:=xlByColumns, _
-                                                MatchCase:=False, _
-                                                BeginsWith:=vbNullString, _
-                                                EndsWith:=vbNullString, _
-                                                BeginEndCompare:=vbTextCompare)
+                            Set FoundCells = FindAll(SearchRange:=.Range(SearchRange), FindWhat:=Change.Value)
                                                 
                             '* If duplicates are found
                             If Not (FoundCells Is Nothing) Then
