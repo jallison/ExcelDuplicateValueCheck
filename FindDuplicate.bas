@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module1"
+Attribute VB_Name = "FindDuplicate"
 Option Explicit
 Option Compare Text
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -130,37 +130,6 @@ If Not FoundCell Is Nothing Then
 End If
     
 Set FindAll = ResultRange
-
-End Function
-
-Function LastRow(ws As Worksheet) As Long
-
-    On Error Resume Next
-    LastRow = ws.Cells.Find(What:="*", _
-                            after:=ws.Range("A1"), _
-                            LookAt:=xlPart, _
-                            LookIn:=xlFormulas, _
-                            SearchOrder:=xlByRows, _
-                            SearchDirection:=xlPrevious, _
-                            MatchCase:=False).Row
-    
-    On Error GoTo 0
-
-End Function
-
-Function LastCol(ws As Worksheet) As Long
-
-    On Error Resume Next
-    LastCol = ws.Cells.Find(What:="*", _
-                            after:=ws.Range("A1"), _
-                            LookAt:=xlPart, _
-                            LookIn:=xlFormulas, _
-                            SearchOrder:=xlByColumns, _
-                            SearchDirection:=xlPrevious, _
-                            MatchCase:=False).Column
-                            
-    
-    On Error GoTo 0
 
 End Function
 

@@ -27,10 +27,10 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
             '* Check each sheet for duplicate values - all sheets have the same column layout
             For Each ws In ActiveWorkbook.Worksheets
             
-                '* Not all sheets need to be checked
-                If Left(ws.Name, 3) <> "WOW" And ws.Name <> "Import" Then
+                With ws
             
-                    With ws
+                    '* Not all sheets need to be checked
+                    If Left(.Name, 3) <> "Pol" And Left(.Name, 3) <> "TEC" And .Name <> "Import" Then
                     
                         '* Only search if changes are in column 2 or column 7
                         If Change.Column = 2 Or Change.Column = 4 Then
@@ -64,7 +64,7 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
                                     '* Ignore the cells where values were just entered
                                     If FoundCell.Address <> Change.Address Then
                                 
-                                        MsgBox (SearchHeader & Change.Value & " found on sheet: " & ws.Name & " in cell: " & FoundCell.Address(False, False))
+                                        MsgBox (SearchHeader & Change.Value & " found on sheet: " & .Name & " in cell: " & FoundCell.Address(False, False))
                                         
                                     End If
                                     
@@ -73,10 +73,10 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
                             End If
                         
                         End If 'Change.Column = 2 Or Change.Column = 4 Then
-                    
-                    End With 'ws
                 
-                End If 'Left(ws.Name, 3) <> "WOW" And ws.Name <> "Import" Then
+                    End If 'Left(.Name, 3) <> "Pol" And Left(.Name, 3) <> "TEC" And .Name <> "Import" Then
+                    
+                End With 'ws
             
             Next 'Each ws In ActiveWorkbook.Worksheets
         
@@ -85,4 +85,3 @@ Private Sub Worksheet_Change(ByVal Changes As Range)
     Next 'Each Change In Changes
 
 End Sub
-
