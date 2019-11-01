@@ -16,13 +16,6 @@ Private Sub CommandButton1_Click()
 
 End Sub
 
-Private Sub CommandButton2_Click()
-
-    Call clean_data("Polk")
-
-End Sub
-
-
 Private Sub CommandButton3_Click()
 
     Call clean_data("TECO")
@@ -82,25 +75,25 @@ Private Function clean_data(ju_name As String)
                             
             If (FoundCells Is Nothing) Then
                         
-                Cells(iRow, 1) = aImport(iLoop, 17) + " " + aImport(iLoop, 18)
+                Cells(iRow, 1) = aImport(iLoop, 18) + " " + aImport(iLoop, 19)
                 Cells(iRow, 2) = aImport(iLoop, 3)
                 
                 '* This will split 10 digit pole numbers into two five digit numbers
-                If Len(aImport(iLoop, 20)) = 10 Then
+                If Len(aImport(iLoop, 21)) = 10 Then
                 
-                    Cells(iRow, 4) = Left(aImport(iLoop, 20), 5) + " " + Right(aImport(iLoop, 20), 5)
+                    Cells(iRow, 4) = Left(aImport(iLoop, 21), 5) + " " + Right(aImport(iLoop, 21), 5)
                     
                 Else
                 
-                    Cells(iRow, 4) = aImport(iLoop, 20)
+                    Cells(iRow, 4) = aImport(iLoop, 21)
                     
                 End If
                 
                 Cells(iRow, 5) = aImport(iLoop, 5)
-                Cells(iRow, 6) = aImport(iLoop, 39)
-                Cells(iRow, 7) = aImport(iLoop, 37)
-                Cells(iRow, 11) = aImport(iLoop, 21)
-                Cells(iRow, 12) = aImport(iLoop, 22)
+                Cells(iRow, 6) = aImport(iLoop, 8)
+                Cells(iRow, 7) = aImport(iLoop, 38)
+                Cells(iRow, 11) = aImport(iLoop, 22)
+                Cells(iRow, 12) = aImport(iLoop, 23)
                 
                 iRow = iRow + 1
                         
